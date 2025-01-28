@@ -45,4 +45,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (User $user): void {
+            $user->profile()->create();
+        });
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->latest();
+    }
 }

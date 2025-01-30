@@ -26,7 +26,7 @@
 
                             <!-- Stats -->
                             <div class="flex space-x-8 text-gray-300">
-                                <span><strong class="text-gray-100">15</strong> posts</span>
+                                <span><strong class="text-gray-100">{{ $user->posts()->count()}}</strong> posts</span>
                                 <span><strong class="text-gray-100">967</strong> followers</span>
                                 <span><strong class="text-gray-100">955</strong> following</span>
                             </div>
@@ -41,12 +41,12 @@
                     </div>
                     <!-- New Post Button -->
                     <div class="pt-8" style="padding-right: 40px;">
-                        <button class="flex flex-col items-center justify-center w-24 h-24 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 transition">
+                        <a href="{{ route('posts.create') }}" class="flex flex-col items-center justify-center w-24 h-24 rounded-lg bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 transition">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
                             <span class="block mt-2">New</span>
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -69,24 +69,11 @@
                         <!-- Image Grid -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                             <!-- Grid Items -->
-                            <div class="relative aspect-square">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" alt="Post 1" class="object-cover w-full h-full">
-                            </div>
-                            <div class="relative aspect-square">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" alt="Post 2" class="object-cover w-full h-full">
-                            </div>
-                            <div class="relative aspect-square">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" alt="Post 3" class="object-cover w-full h-full">
-                            </div>
-                            <div class="relative aspect-square">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" alt="Post 4" class="object-cover w-full h-full">
-                            </div>
-                            <div class="relative aspect-square">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" alt="Post 5" class="object-cover w-full h-full">
-                            </div>
-                            <div class="relative aspect-square">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ=" alt="Post 6" class="object-cover w-full h-full">
-                            </div>
+                            @foreach($user->posts as $post)
+                                <div class="relative aspect-square">
+                                    <img src="/storage/{{ $post-> image }}" alt="Post {{ $loop->iteration }}" class="object-cover w-full h-full">
+                                </div>
+                            @endforeach
                         </div>
                     </div>
 

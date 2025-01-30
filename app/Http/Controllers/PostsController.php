@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
+use App\Helpers\ImageHelper;
+use App\Models\Post;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Intervention\Image\Image;
+use Intervention\Image\ImageManager;
+use Illuminate\Http\RedirectResponse;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class PostsController extends Controller
 {
@@ -21,6 +26,7 @@ class PostsController extends Controller
             'image' => ['required', 'image'],
         ]);
 
+        // Make images square
         $imagePath = $request->file('image')->store('uploads', 'public');
 
         auth()->user()->posts()->create([

@@ -8,9 +8,11 @@ class Profile extends Model
 {
 
     protected $fillable = [
+        'username',
         'title',
         'description',
         'url',
+        'image',
     ];
 
     public function user()

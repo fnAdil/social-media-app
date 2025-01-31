@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FollowsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/create', [PostsController::class, 'create'])->name('posts.create');
     Route::post('/posts', [PostsController::class, 'store'])->name('posts.store');
     Route::get('/posts/{post}', [PostsController::class, 'show'])->name('posts.show');
+
+    Route::post('/follow/{user}', [FollowsController::class, 'store'])->name('follow');
 });
 
 

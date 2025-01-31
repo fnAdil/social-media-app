@@ -12,7 +12,7 @@
                 <div class="flex items-center p-4 border-b border-gray-800">
                     <div class="flex items-center">
                         <img class="h-8 w-8 rounded-full object-cover" 
-                             src="{{ $post->user->profile_photo_url ?? '/placeholder.jpg' }}" 
+                             src="{{ $post->user->profile->profileImage() }}" 
                              alt="{{ $post->user->name }}">
                         <span class="ml-3 font-medium text-gray-200">{{ $post->user->name }}</span>
                     </div>
@@ -22,7 +22,7 @@
                 <div class="aspect-square">
                     <img src="{{ asset('storage/' . $post->image) }}" 
                          alt="Post image" 
-                         class="w-full h-full object-cover">
+                         class="w-1200 h-1200 object-cover">
                 </div>
 
                 <!-- Post Actions -->
@@ -49,10 +49,10 @@
                 <!-- Description -->
                 <div class="px-4 py-2">
                     <p class="text-gray-200">
-                    <img class="inline-block h-6 w-6 rounded-full object-cover" 
-                             src="{{ $post->user->profile_photo_url ?? '/placeholder.jpg' }}" >
-                        <span class="font-semibold mr-2">{{ $post->user->name }}</span>
-                        {{ $post->description }}
+                        <img class="inline-block h-6 w-6 rounded-full object-cover mr-1" 
+                             src="{{ $post->user->profile->profileImage() }}" >
+                        <span class="font-semibold mr-3">{{ $post->user->name }}</span>
+                            {{ $post->description }}
                     </p>
                 </div>
 

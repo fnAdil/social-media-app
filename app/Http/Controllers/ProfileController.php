@@ -48,11 +48,13 @@ class ProfileController extends Controller
             //TO DO: make image square
             $imagePath = request('image')->store('profile', 'public');
             $data['image'] = $imagePath;
+
+            $imageArray = ['image' => $imagePath];
         }
 
         auth()->user()->profile->update(array_merge(
             $data,
-            ['image' => $imagePath ?? auth()->user()->profile->image]
+            $imageArray ?? []
         ));
 
         return Redirect::route('profile.show', ['user' => $user])->with('status', 'profile-updated');

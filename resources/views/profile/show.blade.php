@@ -7,7 +7,7 @@
                     <div class="flex items-center space-x-8">
                         <!-- Profile Picture -->
                         <div class="relative">
-                            <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-800 border border-gray-700">
+                            <div class="w-44 h-44 rounded-full overflow-hidden bg-gray-800 border border-gray-700">
                                 <img src="{{ $user->profile->profileImage() }}"
                                     alt="" class="w-full h-full object-cover">
                             </div>
@@ -26,14 +26,34 @@
                                     class="bg-gray-800 text-gray-300 px-4 py-2 rounded border border-gray-700 hover:bg-gray-700 transition">
                                     View archive
                                 </button>
+                                @else
+                                @if (auth()->user()->following->contains($user->id))
+                                    <form method="POST" action="{{ route('follow', ['user' => $user->id]) }}">
+                                        @csrf
+                                        @method('post')
+                                        <button type="submit"
+                                            class="bg-gray-800 text-gray-300 px-4 py-2 rounded border border-gray-700 hover:bg-gray-700 transition">
+                                            Following
+                                        </button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="{{ route('follow', ['user' => $user->id]) }}">
+                                        @csrf
+                                        @method('post')
+                                        <button type="submit"
+                                            class="bg-gray-800 text-gray-300 px-4 py-2 rounded border border-gray-700 hover:bg-gray-700 transition">
+                                            Follow
+                                        </button>
+                                    </form>
+                                @endif
                                 @endCan
                             </div>
 
                             <!-- Stats -->
                             <div class="flex space-x-8 text-gray-300">
                                 <span><strong class="text-gray-100">{{ $user->posts()->count()}}</strong> posts</span>
-                                <span><strong class="text-gray-100">967</strong> followers</span>
-                                <span><strong class="text-gray-100">955</strong> following</span>
+                                <span><strong class="text-gray-100">{{ $user->profile->followers->count() }}</strong> followers</span>
+                                <span><strong class="text-gray-100">{{ $user->following->count() }}</strong> following</span>
                             </div>
 
                             <!-- Bio -->

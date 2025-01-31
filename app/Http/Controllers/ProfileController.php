@@ -34,16 +34,15 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(User $user)
-    {
-        
+    { 
         $this->authorize('update', $user->profile);   
         $data = request()->validate([
             'username' => ['required', 'string', 'max:255', 'unique:profiles,username,' . $user->profile->id],
             'title' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string', 'max:255'],
             'url' => ['url', 'nullable'],
-            'image' => ['image', 'nullable'],
-        ]);     
+            'image' => '',
+        ]);    
 
         if (request('image')) {
             //TO DO: make image square
@@ -51,11 +50,12 @@ class ProfileController extends Controller
             $data['image'] = $imagePath;
         }
 
-        $user->profile->update($data);
+        auth()->user()->profile->update(array_merge(
+            $data,
+            ['image' => $imagePath ?? auth()->user()->profile->image]
+        ));
 
-  
-
-        return Redirect::route('profile.edit', ['user' => $user])->with('status', 'profile-updated');
+        return Redirect::route('profile.show', ['user' => $user])->with('status', 'profile-updated');
     }
 
     /**

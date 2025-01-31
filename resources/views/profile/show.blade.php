@@ -8,7 +8,7 @@
                         <!-- Profile Picture -->
                         <div class="relative">
                             <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-800 border border-gray-700">
-                                <img src="https://media.istockphoto.com/id/1437816897/photo/business-woman-manager-or-human-resources-portrait-for-career-success-company-we-are-hiring.jpg?s=612x612&w=0&k=20&c=tyLvtzutRh22j9GqSGI33Z4HpIwv9vL_MZw_xOE19NQ="
+                                <img src="{{ $user->profile->profileImage() }}"
                                     alt="" class="w-full h-full object-cover">
                             </div>
                         </div>

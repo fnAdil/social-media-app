@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update', ['user' => $user->id]) }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update', ['user' => $user->id]) }}" enctype="multipart/form-data" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -70,6 +70,40 @@
                 autocomplete="url" />
             <x-input-error class="mt-2" :messages="$errors->get('url')" />
         </div>
+        <div class="space-y-2">
+            <div class="flex items-center space-x-6">
+                <div class="shrink-0 mb-4">
+                    <img id="image-preview" class="h-80 w-80 object-cover" 
+                        src="{{ $user->profile->image ?? '/placeholder.jpg' }}" 
+                        alt="image">
+                </div>
+                <label class="block">
+                    <span class="sr-only">Choose image</span>
+                        <input type="file" 
+                            name="image" 
+                            id="image"
+                            accept="image/*"
+                            class="block w-full text-sm text-gray-400
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-md file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-gray-700 file:text-gray-300
+                                hover:file:bg-gray-600
+                                cursor-pointer">
+                            <script>
+                                document.getElementById('image').addEventListener('change', function(event) {
+                                    const [file] = event.target.files;
+                                    if (file) {
+                                        document.getElementById('image-preview').src = URL.createObjectURL(file);
+                                    }
+                                });
+                            </script>
+                            @if ($errors->has('image'))
+                                <p class="text-sm text-red-600">{{ $errors->first('image') }}</p>
+                            @endif
+                    </label>
+                </div>
+            </div>
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>

@@ -23,7 +23,7 @@
                 <!-- Profile Picture -->
                 <div class="relative">
                     <div class="w-44 h-44 rounded-full overflow-hidden bg-gray-800 border border-gray-700">
-                        <img src="{{ $user->profile->profileImage() }}"
+                        <img id="image-preview" src="{{ $user->profile->profileImage() }}"
                             alt="" class="w-full h-full object-cover">
                     </div>
                 </div>
